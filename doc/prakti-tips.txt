@@ -1,0 +1,26 @@
+*prakti-tips.txt*	Prakti's VIM Tips
+
+This is a file containing Prakti's VIM Tips.
+
+Key convetions:
+  * <C-x> denotes a combination of the CTRL-Key and another key "x"
+  * <M-x> denotes a combination of the ALT or Meta key and another key "x"
+
+MOVING                           *prakti-moving*
+* Use "<left>" "<right>" arrows to move between tabs
+* Use "<C-h>", "<C-j>", "<C-k>","<C-l>", to move between editor-windows
+
+EDITING                         *prakti-editing*
+
+* Use ":tabe {file}" to open a file in a new tab 
+* Use "A" to jump into edit mode at the end of the current line.
+* Use "o" to start editing in the next line
+* Use "<M-j>" and "<M-k>" to move lines down and up 
+* Like in Eclipse Omni-Completion is found on CTRL-SPACE
+* Simple completion is on CTRL-p
+
+SEARCHING                       *prakti-searching*
+* Use "*" to search the current word under the cursor
+* Use "#" to search like with "*" but backwards
+
+Copyright: Prakti  vim:tw=78:ts=4:ft=help:norl:
