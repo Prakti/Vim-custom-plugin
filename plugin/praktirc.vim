@@ -38,11 +38,11 @@ let mapleader = ","
 let g:mapleader = ","
 
 "Fast reloading of the .vimrc
-map <leader>s :source ~/.vimrc<cr>
+map <leader>s :source ~/.vim/bundle/prakti/plugin/praktirc.vim<cr>
 "Fast editing of .vimrc
-map <leader>e :tabe! ~/.vimrc<cr>
+map <leader>e :tabe! ~/.vim/bundle/prakti/plugin/praktirc.vim<cr>
 "When .vimrc is edited, reload it
-autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! bufwritepost praktirc.vim source ~/.vim/bundle/prakti/plugin/praktirc.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -128,9 +128,6 @@ set mat=2
 
 "Highlight search things
 set hlsearch
-
-"Toggle Error-Window
-map <leader>w :cwindow<cr>
 
 ":nohl shortcut
 map <leader>n :nohl<cr>
@@ -228,6 +225,25 @@ map <leader>q :tabe ~/buffer<cr>
 "Restore cursor to file position in previous editing session
 set viminfo='10,\"100,:20,%,n~/.viminfo
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Create toggling for error-window on per-buffer base
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle window on 
+function! EWinOn() "Toggle on
+  cwindow
+  map <buffer> <leader>w :call EWinOff()<cr>
+endfunction
+
+" Toggle window off
+function! EWinOff()
+  cclose
+  map <buffer> <leader>w :call EWinOn()<cr>
+endfunction
+
+" Put everything into place
+map <leader>w :call EWinOn()<cr> 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
