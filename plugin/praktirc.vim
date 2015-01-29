@@ -38,11 +38,11 @@ let mapleader = ","
 let g:mapleader = ","
 
 "Fast reloading of the .vimrc
-map <leader>s :source ~/.vim/bundle/prakti/plugin/praktirc.vim<cr>
+map <leader>s :source ~/.vim/bundle/Vim-custom-plugin/plugin/praktirc.vim<cr>
 "Fast editing of .vimrc
-map <leader>e :tabe! ~/.vim/bundle/prakti/plugin/praktirc.vim<cr>
+map <leader>e :tabe! ~/.vim/bundle/Vim-custom-plugin/plugin/praktirc.vim<cr>
 "When .vimrc is edited, reload it
-autocmd! bufwritepost praktirc.vim source ~/.vim/bundle/prakti/plugin/praktirc.vim
+autocmd! bufwritepost praktirc.vim source ~/.vim/bundle/Vim-custom-plugin/plugin/praktirc.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -51,8 +51,9 @@ autocmd! bufwritepost praktirc.vim source ~/.vim/bundle/prakti/plugin/praktirc.v
 syntax enable
 
 if has("gui_running")
-  set guifont=Monospace\ 10
-  colorscheme candycode
+  set guifont=Inconsolata\ 10
+  colorscheme solarized
+  set background=dark
   set guioptions-=m
   set guioptions-=T
 else
@@ -144,10 +145,6 @@ function! CurDir()
    return curdir
 endfunction
 
-"Format the statusline
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c
-
-
 """"""""""""""""""""""""""""""
 " Visual Search with * and #
 """"""""""""""""""""""""""""""
@@ -171,7 +168,7 @@ vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Moving in Tabs 
+" Moving in Tabs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Use the arrows to switch through tabs
@@ -230,7 +227,7 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Create toggling for error-window on per-buffer base
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Toggle window on 
+" Toggle window on
 function! EWinOn() "Toggle on
   cwindow
   map <buffer> <leader>w :call EWinOff()<cr>
@@ -243,7 +240,7 @@ function! EWinOff()
 endfunction
 
 " Put everything into place
-map <leader>w :call EWinOn()<cr> 
+map <leader>w :call EWinOn()<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -298,3 +295,22 @@ set pastetoggle=<F3>
 
 "Remove indenting on empty lines
 map <F2> :%s/\s*$//g<cr>:noh<cr>''
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Airline configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.space = "\ua0"
+
+let g:airline_right_alt_sep = "\uf053"
+let g:airline_left_alt_sep = "\uf054"
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.branch = "\uf126"
+let g:airline_symbols.readonly = "\uf023"
+let g:airline_symbols.linenr = "\uf0da"
+
