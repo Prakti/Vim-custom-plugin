@@ -40,7 +40,7 @@ let g:mapleader = ","
 "Fast reloading of the .vimrc
 map <leader>s :source ~/.vim/bundle/Vim-custom-plugin/plugin/praktirc.vim<cr>
 "Fast editing of .vimrc
-map <leader>e :tabe! ~/.vim/bundle/Vim-custom-plugin/plugin/praktirc.vim<cr>
+map <leader>e :e! ~/.vim/bundle/Vim-custom-plugin/plugin/praktirc.vim<cr>
 "When .vimrc is edited, reload it
 autocmd! bufwritepost praktirc.vim source ~/.vim/bundle/Vim-custom-plugin/plugin/praktirc.vim
 
@@ -51,14 +51,15 @@ autocmd! bufwritepost praktirc.vim source ~/.vim/bundle/Vim-custom-plugin/plugin
 syntax enable
 
 if has("gui_running")
-  set guifont=Inconsolata\ 10
-  colorscheme solarized
+  set guifont=Monospace\ 10
+  colorscheme jellybeans
   set background=dark
   set guioptions-=m
   set guioptions-=T
+  set guioptions-=e
 else
   set background=dark
-  colorscheme default
+  colorscheme jellybeans
 endif
 
 autocmd BufEnter * :syntax sync fromstart
@@ -277,24 +278,24 @@ set wrap
 " Yank Ring
 map <leader>y :YRShow<cr>
 
+" TODO: reenable once Taglis is installed
 " Tag list (ctags)
-let Tlist_Sort_Type = "name"
-let Tlist_Show_Menu = 1
-map <leader>t :Tlist<cr>
+"let Tlist_Sort_Type = "name"
+"let Tlist_Show_Menu = 1
+"map <leader>t :Tlist<cr>
+"
+"autocmd BufRead,BufNew :call TList
 
-autocmd BufRead,BufNew :call TList
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Remove the Windows ^M
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTRL-P Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_map = '<c-f>'
 
-"Paste toggle - when pasting something in, don't indent.
-set pastetoggle=<F3>
+let g:ctrlp_max_height = 20
+let g:ctrlp_custom_ignore = 'node_modules\|^\.git\|^\.coffee'
 
-"Remove indenting on empty lines
-map <F2> :%s/\s*$//g<cr>:noh<cr>''
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline configuration
@@ -314,3 +315,29 @@ let g:airline_symbols.branch = "\uf126"
 let g:airline_symbols.readonly = "\uf023"
 let g:airline_symbols.linenr = "\uf0da"
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PHP Syntax Override
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MISC
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Remove the Windows ^M
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+"Paste toggle - when pasting something in, don't indent.
+set pastetoggle=<F3>
+
+"Remove indenting on empty lines
+map <F2> :%s/\s*$//g<cr>:noh<cr>''
