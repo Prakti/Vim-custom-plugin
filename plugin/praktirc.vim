@@ -169,12 +169,16 @@ vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Moving in Tabs
+" Moving in Buffers and Tabs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"Use the arrows to switch through tabs
-map <right> gt
-map <left> gT
+"Use the arrows to switch through buffers
+map <right> :bn<cr>
+map <left> :bp<cr>
+
+"Use Control-Arrows to switch tabs
+map <C-right> gt
+map <C-left> gT
 
 "Moving tab-pages
 noremap <silent> <M-right>  :if tabpagenr() == tabpagenr("$")\|tabm 0\|el\|exe "tabm ".tabpagenr()\|en<CR>
@@ -278,13 +282,9 @@ set wrap
 " Yank Ring
 map <leader>y :YRShow<cr>
 
-" TODO: reenable once Taglis is installed
-" Tag list (ctags)
-"let Tlist_Sort_Type = "name"
-"let Tlist_Show_Menu = 1
-"map <leader>t :Tlist<cr>
-"
-"autocmd BufRead,BufNew :call TList
+" NERDTree
+autocmd BufRead,BufNew :call NERDTree
+map <leader>t :NERDTreeToggle<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -294,7 +294,7 @@ let g:ctrlp_working_path_mode = 0
 let g:ctrlp_map = '<c-f>'
 
 let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.git\|^\.coffee'
+let g:ctrlp_custom_ignore = 'node_modules\|^\.git\|^\.coffee\|^vendor'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -330,9 +330,26 @@ augroup phpSyntaxOverride
 augroup END
 
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ultisnips configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<c-b>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-z>"
+
+let g:UltiSnipsEditSplit = "vertical"
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MISC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"Display trailing whitespace as an errror:
+match ErrorMsg '\s\+$'
+
+"Automatically remove trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
+
 "Remove the Windows ^M
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
