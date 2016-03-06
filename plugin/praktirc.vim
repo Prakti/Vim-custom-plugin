@@ -51,7 +51,7 @@ autocmd! bufwritepost praktirc.vim source ~/.vim/bundle/Vim-custom-plugin/plugin
 syntax enable
 
 if has("gui_running")
-  set guifont=Monospace\ 10
+  set guifont=Monospace\ 9 
   colorscheme jellybeans
   set background=dark
   set guioptions-=m
@@ -262,7 +262,7 @@ set foldcolumn=5
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
 set smarttab
-set shiftwidth=2
+set shiftwidth=4
 set lbr
 set tw=78
 
@@ -296,6 +296,11 @@ let g:ctrlp_map = '<c-f>'
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.git\|^\.coffee\|^vendor'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" phpcomplete extended 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:phpcomplete_index_composer_command = "composer"
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Airline configuration
@@ -317,18 +322,13 @@ let g:airline_symbols.linenr = "\uf0da"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PHP Syntax Override
+" Configure Javascripts libs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
-endfunction
-
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
-
+autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_underscore = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_backbone = 1
+autocmd BufReadPre *.js let b:javascript_lib_use_prelude = 0
+autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ultisnips configuration
